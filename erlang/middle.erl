@@ -19,16 +19,16 @@
 
 % The middle character(s) of the word represented as a string.
 
--module(middle_char).
+-module(middle).
 -export([middle/1]).
 
 middle("") -> "";
 middle(Word) ->
     Length = string:len(Word),
-    middle(Word, Length, round(Length / 2)).
-
-middle(Word, Length, Middle) when Length rem 2 == 0 ->
-    string:sub_string(Word, Middle, Middle + 1);
-
-middle(Word, _, Middle) ->
-    string:sub_string(Word, Middle, Middle).
+    Middle = round(Length / 2),
+    case Length of
+        Len when Len rem 2 == 0 ->
+            string:sub_string(Word, Middle, Middle + 1);
+        _ ->
+            string:sub_string(Word, Middle, Middle)
+    end.
